@@ -39,8 +39,9 @@ Documentation: [English version](https://github.com/luolongfei/freenom/blob/mast
 
 [🥝  开源协议](#--开源协议)
 
-<h4>注意：GitHub 官方不允许使用 github action 做签到或者续期类应用，否则会封禁项目甚至封号，故为项目能长期维护下去，应 GitHub 官方要求，
-本项目已经移除 action 方式的应用，望周知。已经 fork 使用的，可以尽快将项目搬运到自己的 vps 上，推荐通过 Docker 部署。本项目依然长期维护。</h4>
+<h5>注意：GitHub 官方不允许使用 GitHub Action 做签到或者续期类应用，否则会封禁项目甚至封号，故为项目能长期维护下去，应 GitHub 官方要求，
+本项目已经移除 Action 方式的应用，望周知。已经 fork 使用的，可以尽快将项目转移到自己的 VPS 上，推荐通过 Docker 部署，
+或者直接搬运到腾讯云函数部署。本项目依然长期维护。</h5>
 
 ### 📃  前言
 众所周知，Freenom是地球上唯一一个提供免费顶级域名的商家，不过需要每年续期，每次续期最多一年。由于我申请了一堆域名，而且不是同一时段申请的，
@@ -55,7 +56,7 @@ Documentation: [English version](https://github.com/luolongfei/freenom/blob/mast
 ### 🎁  事前准备
 - 发信邮箱：为了方便理解又称机器人邮箱，用于发送通知邮件。目前支持`Gmail`、`QQ邮箱`以及`163邮箱`，程序会自动判断发信邮箱类型并使用合适的配置。
 - 收信邮箱：用于接收机器人发出的通知邮件。推荐使用`QQ邮箱`，`QQ邮箱`唯一的好处只是收到邮件会在`QQ`弹出消息。
-- VPS：随便一台服务器都行，系统推荐`Centos7`，另外PHP版本需在`php7.2`及以上。如果你没有 VPS，可以考虑一下 [🚁  我正在用的 VPS](#--我正在用的-VPS) ，最便宜的机器`10刀`一年。
+- VPS：随便一台服务器都行，系统推荐`Centos7`，另外PHP版本需在`php7.2`及以上。如果你没有 VPS，可以考虑一下 [🚁  我正在用的 VPS](#--我正在用的-VPS) ，最便宜的机器`9.9美元`一年。
 - 没有了
 
 ### 📪  配置发信邮箱
@@ -435,17 +436,18 @@ $ cd /data/wwwroot/freenom/ && php run
 
 ![每一次你花的钱都是在为你想要的世界投票。](https://s2.ax1x.com/2020/01/31/13P8cF.jpg)
 
-**你的star或者小额打赏是我长期维护此项目的动力所在，由衷感谢每一位支持者，“每一次你花的钱都是在为你想要的世界投票”。**
+**你的 star 或者`小额打赏`是我长期维护此项目的动力所在，由衷感谢每一位支持者，“每一次你花的钱都是在为你想要的世界投票”。
+另外，将本项目推荐给更多的人，也是一种支持的方式，用的人越多更新的动力越足。**
 
 ### 🚁  我正在用的 VPS
 
-注：推荐的 VPS 商家都是我正在使用的，走我的 Aff 地址购买，我可以获得一点收益，也算是捐赠的一种，介意者复制官网地址访问即可。
+走我的 Aff 地址购买，我可以获得一点返利，也算是一种支持方式，介意者复制官网地址访问即可。
 
 | 名称 | 购买地址 | 备注 |
 | :---: | :--- | :--- |
-| 搬瓦工 | [https://bandwagonhost.com/aff.php?aff=24499](https://bandwagonhost.com/aff.php?aff=24499) | 稳定大厂，不管是限量版 GIA 还是日本软银都很抢手。目前是我的主力机型。 |
-| Vultr | [https://www.vultr.com/?ref=7429134](https://www.vultr.com/?ref=7429134) <br> [https://www.vultr.com/?ref=8399703-6G](https://www.vultr.com/?ref=8399703-6G) | 随开随停，按小时计费，用多少算多少，我平时需要干净的 VPS 测试时会用它们家的。从左边第二个地址进入的新用户可得`100刀`体验金。 |
-| PacificRack | [https://pacificrack.com/portal/aff.php?aff=1150](https://pacificrack.com/portal/aff.php?aff=1150) | 低价屠夫，最便宜的机型`10刀`一年，QuadraNet 机房，我用了两年了目前感觉很稳。预算有限的情况下选它们家准没错。 |
+| 搬瓦工 | [https://bwh81.net/aff.php?aff=24499&pid=104](https://bwh81.net/aff.php?aff=24499&pid=104) （日本软银 VPS 限量版，`65美元`一年，优惠码：`BWH3HYATVBJW`） <br> [https://bwh81.net/aff.php?aff=24499&pid=94](https://bwh81.net/aff.php?aff=24499&pid=94) （CN2 GIA LIMITED EDITION，`DC 6`机房，`46.8美元`一年） <br> [https://bwh81.net/aff.php?aff=24499&pid=71](https://bwh81.net/aff.php?aff=24499&pid=71) （CN2 GIA 丐版，`DC 9`机房，`37.79美元`一年） | 稳定大厂，它们家`限量版 GIA`很香。目前是我的主力机型。 |
+| Vultr | [https://www.vultr.com/?ref=7429134](https://www.vultr.com/?ref=7429134) （最低`2.5美元`每月） <br> [https://www.vultr.com/?ref=8399703-6G](https://www.vultr.com/?ref=8399703-6G) （新用户可得`100美元`体验金） | 随开随停，很方便。 |
+| PacificRack | [https://pacificrack.com/portal/aff.php?aff=1150&pid=11](https://pacificrack.com/portal/aff.php?aff=1150&pid=11) （`9.9美元`一年） | 最便宜的机型`9.9美元`一年，QuadraNet 机房，我用了两年了目前感觉很稳。 |
 
 ### 🍺  信仰
 
