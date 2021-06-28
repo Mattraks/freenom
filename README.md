@@ -17,11 +17,17 @@ Documentation: [English version](https://github.com/luolongfei/freenom/blob/mast
 
 [📪  配置发信邮箱](#--配置发信邮箱)
 
+<hr>
+
+*（下面三种部署方式，选择其中一种即可）*
+
 [⛵  通过 Docker 方式部署](#--方式一通过-docker-部署最简单的方式)（最简单的方式，推荐）
 
 [🕹  通过腾讯云函数（SCF）部署](#--方式二通过腾讯云函数scf部署)
 
 [🚧  直接拉取源码部署](#--方式三直接拉取源码部署)
+
+<hr>
 
 [📋  捐赠名单 Donate List](#--捐赠名单-donate-list)
 
@@ -151,22 +157,28 @@ Telegram bot 有两个配置项，一个是`chatID`（对应`.env`文件中的`T
 
 <hr>
 
+Docker 仓库地址为： [https://hub.docker.com/r/luolongfei/freenom](https://hub.docker.com/r/luolongfei/freenom) ，同样欢迎 star 。
+此镜像支持的架构为`linux/amd64`，`linux/arm64`，`linux/ppc64le`，`linux/s390x`，`linux/386`，`linux/arm/v7`，`linux/arm/v6`，
+理论上支持`群晖`、`威联通`、`树莓派`以及各种类型的`VPS`。
+
 #### 1、安装 Docker
 
 ##### 1.1 以 root 用户登录，执行一键脚本安装 Docker
 
 升级源并安装软件（下面两行命令二选一，根据你自己的系统）
-```shell
-# Debian / Ubuntu
-$ apt-get update && apt-get install -y wget vim
 
-# CentOS
-$ yum update && yum install -y wget vim
+Debian / Ubuntu
+```shell
+apt-get update && apt-get install -y wget vim
+```
+CentOS
+```shell
+yum update && yum install -y wget vim
 ```
 
 执行此命令等候自动安装 Docker
 ```shell
-$ wget -qO- get.docker.com | bash
+wget -qO- get.docker.com | bash
 ```
 
 说明：请使用 KVM 架构的 VPS，OpenVZ 架构的 VPS 不支持安装 Docker，另外 CentOS 8 不支持用此脚本来安装 Docker。
@@ -176,22 +188,22 @@ $ wget -qO- get.docker.com | bash
 
 查看 Docker 安装版本等信息
 ```shell
-$ docker version
+docker version
 ```
 
 启动 Docker 服务
 ```shell
-$ systemctl start docker
+systemctl start docker
 ```
 
 查看 Docker 运行状态
 ```shell
-$ systemctl status docker
+systemctl status docker
 ```
 
 将 Docker 服务加入开机自启动
 ```shell
-$ systemctl enable docker
+systemctl enable docker
 ```
 
 #### 2、通过 Docker 部署域名续期脚本
@@ -200,11 +212,11 @@ $ systemctl enable docker
 
 命令如下
 ```shell
-$ docker run -d --name freenom --restart always -v $(pwd):/conf -v $(pwd)/logs:/app/logs luolongfei/freenom
+docker run -d --name freenom --restart always -v $(pwd):/conf -v $(pwd)/logs:/app/logs luolongfei/freenom
 ```
 或者，如果你想自定义脚本执行时间，则命令如下
 ```shell
-$ docker run -d --name freenom --restart always -v $(pwd):/conf -v $(pwd)/logs:/app/logs -e RUN_AT="11:24" luolongfei/freenom
+docker run -d --name freenom --restart always -v $(pwd):/conf -v $(pwd)/logs:/app/logs -e RUN_AT="11:24" luolongfei/freenom
 ```
  上面这条命令只比上上条命令多了个` -e RUN_AT="11:24"`，其中`11:24`表示在北京时间每天的 11:24 执行续期任务，你可以自定义这个时间。
  这里的`RUN_AT`参数同时也支持 CRON 命令里的时间形式，比如，` -e RUN_AT="9 11 * * *"`，表示每天北京时间 11:09 执行续期任务，
@@ -258,39 +270,39 @@ $ docker run -d --name freenom --restart always -v $(pwd):/conf -v $(pwd)/logs:/
 > 如何验证你的配置是否正确呢？
 >
 
-*修改并保存`.env`文件后，执行`docker restart freenom`重启容器，然后执行`docker logs freenom`查看输出内容，观察输出内容中有`执行成功`字样，
-则表示配置无误。如果你还来不及配置送信邮箱等内容，可先停用邮件功能。*
+修改并保存`.env`文件后，执行`docker restart freenom`重启容器，等待 5 秒钟左右，然后执行`docker logs freenom`查看输出内容，
+观察输出内容中有`执行成功`字样，则表示配置无误。如果你还来不及配置送信邮箱等内容，可先停用邮件功能。
 
 ##### 2.2 后期容器处理常用命令
 
 查看容器在线状态及大小
 ```shell
-$ docker ps -as
+docker ps -as
 ```
 
 查看容器的运行输出日志
 ```shell
-$ docker logs freenom
+docker logs freenom
 ```
 
 重新启动容器
 ```shell
-$ docker restart freenom
+docker restart freenom
 ```
 
 停止容器的运行
 ```shell
-$ docker stop freenom
+docker stop freenom
 ```
 
 移除容器
 ```shell
-$ docker rm $name
+docker rm $name
 ```
 
 查看 docker 容器占用 CPU，内存等信息
 ```shell
-$ docker stats --no-stream
+docker stats --no-stream
 ```
 
 *有关容器部署的内容结束。*
@@ -327,25 +339,30 @@ $ docker stats --no-stream
 
 所有操作均在Centos7系统下进行，其它Linux发行版大同小异
 #### 1、获取源码
-```bash
-$ mkdir -p /data/wwwroot/freenom
-$ cd /data/wwwroot/freenom
-
-# clone本仓库源码
-$ git clone https://github.com/luolongfei/freenom.git ./
+创建文件夹
+```shell script
+mkdir -p /data/wwwroot/freenom && cd /data/wwwroot/freenom
+```
+clone 本仓库源码
+```shell script
+git clone https://github.com/luolongfei/freenom.git ./
 ```
 
 #### 2、修改配置
-```bash
-# 复制配置文件模板
-$ cp .env.example .env
-
-# 编辑配置文件
-$ vim .env
-
-# .env文件里每个项目都有详细的说明，这里不再赘述，简言之，你需要把里面所有项都改成你自己的。需要注意的是多账户配置的格式：
+复制配置文件模板
+```shell script
+cp .env.example .env
+```
+编辑配置文件
+```shell script
+vim .env
+```
+```shell script
+# 注意事项
+# .env 文件里每个项目都有详细的说明，这里不再赘述，简言之，你需要把里面所有项都改成你自己的。需要注意的是多账户配置的格式：
 # e.g. MULTIPLE_ACCOUNTS='<账户1>@<密码1>|<账户2>@<密码2>|<账户3>@<密码3>'
-# 当然，若你只有单个账户，只配置FREENOM_USERNAME和FREENOM_PASSWORD就够了，单账户和多账户的配置会被合并在一起读取并去重。
+# （注意不要省略“<>”符号，否则无法正确匹配）
+# 当然，若你只有单个账户，只配置 FREENOM_USERNAME 和 FREENOM_PASSWORD 就够了，单账户和多账户的配置会被合并在一起读取并去重。
 
 # 编辑完成后，按“Esc”回到命令模式，输入“:wq”回车即保存并退出，不会用 vim 编辑器的可以谷歌一下:)
 ```
@@ -353,29 +370,32 @@ $ vim .env
 #### 3、添加计划任务
 
 ##### 3.1 安装 crontabs 以及 cronie
-```bash
-$ yum -y install cronie crontabs
-
-# 验证crond是否安装及启动
-$ yum list cronie && systemctl status crond
-
-# 验证crontab是否安装
-$ yum list crontabs $$ which crontab && crontab -l
+```shell script
+yum -y install cronie crontabs
+```
+验证 crond 是否安装及启动
+```shell script
+yum list cronie && systemctl status crond
+```
+验证crontab是否安装
+```shell script
+yum list crontabs $$ which crontab && crontab -l
 ```
 
 ##### 3.2 打开任务表单，并编辑
-```bash
-$ crontab -e
-
+```shell script
+crontab -e
+```
+```shell script
 # 任务内容如下
-# 此任务的含义是在每天早上9点执行/data/wwwroot/freenom/路径下的run文件
-# 注意：某些情况下，crontab可能找不到你的php路径，下面的命令执行后会在freenom_crontab.log文件输出错误信息，你应该指定php路径：把下面的php替换为/usr/local/php/bin/php（根据实际情况）
+# 此任务的含义是在每天早上 9点 执行 /data/wwwroot/freenom/ 路径下的 run 文件，最佳实践是将这个时间修改为一个非整点的时间，防止与很多人在同一时间进行续期操作导致 freenom 无法稳定提供服务
+# 注意：某些情况下，crontab 可能找不到你的 php 路径，下面的命令执行后会在 freenom_crontab.log 文件输出错误信息，你应该指定 php 路径：把下面的 php 替换为 /usr/local/php/bin/php （根据实际情况，执行 whereis php 即可看到 php 执行文件的真实路径）
 00 09 * * * cd /data/wwwroot/freenom/ && php run > freenom_crontab.log 2>&1
 ```
 
 ##### 3.3 重启crond守护进程（每次编辑任务表单后都需此步，以使任务生效）
-```bash
-$ systemctl restart crond
+```shell script
+systemctl restart crond
 ```
 若要检查`计划任务`是否正常，你可以将上面的任务执行时间设置在几分钟后，然后等到任务执行完成，
 检查`/data/wwwroot/freenom/`目录下的`freenom_crontab.log`文件内容，是否有报错信息。常见的错误信息如下：
@@ -389,12 +409,14 @@ $ systemctl restart crond
 
 >
 > 执行
-> ```bash
-> $ whereis php
-> # 确定php的位置，一般输出为“php: /usr/local/php /usr/local/php/bin/php”，选长的那个即：/usr/local/php/bin/php
+> ```shell script
+> whereis php
+> ```
+> ```shell script
+> # 上面的命令可确定 php 执行文件的位置，一般输出为“php: /usr/local/php /usr/local/php/bin/php”，选长的那个即：/usr/local/php/bin/php
 > ```
 > 
-> 现在我们知道php的路径是`/usr/local/php/bin/php`（根据你自己系统的实际情况，可能不同），然后修改表单任务里的命令，把
+> 现在我们知道 php 执行文件的路径是`/usr/local/php/bin/php`（根据你自己系统的实际情况，可能不同），然后修改表单任务里的命令，把
 > 
 > `00 09 * * * cd /data/wwwroot/freenom/ && php run > freenom_crontab.log 2>&1`
 > 
@@ -413,8 +435,8 @@ $ systemctl restart crond
 
 ##### 3.4 验证
 你可以先将`.env`中的`NOTICE_FREQ`的值改为1（即每次执行都推送通知），然后执行
-```bash
-$ cd /data/wwwroot/freenom/ && php run
+```shell script
+cd /data/wwwroot/freenom/ && php run
 ```
 不出意外的话，你将收到一封关于域名情况的邮件。
 
